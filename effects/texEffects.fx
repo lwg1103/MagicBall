@@ -6,29 +6,31 @@ float gOpacity;
 Texture2D <float4> xTexture;
 sampler TextureSampler;
 
-struct VS_IN
+struct VS_IN_TEX
 {
 	float4 pos : POSITION;
 	float2 cords :TEXCOORD0;
 };
 
-struct PS_IN
+struct PS_IN_TEX
 {
 	float4 pos : SV_POSITION;
 	float2 cords :TEXCOORD0;
 };
 
-PS_IN vs_tex(VS_IN input)
+PS_IN_TEX vs_tex(VS_IN_TEX input)
 {
-	PS_IN output = (PS_IN)0;
-	output.pos = input.pos;
+	PS_IN_TEX output = (PS_IN_TEX)0;
+	input.pos.w = 1.0f;
+
+	output.pos = mul(mul(mul(input.pos, mul(gWorld, gTrans)), gView), gProj);
         output.cords =input.cords;
 	return output;
 }
 
-float4 ps_tex(PS_IN input) : SV_Target
+float4 ps_tex(PS_IN_TEX input) : SV_Target
 {
-   float2 temp;
+	float2 temp;
 	temp  = float2(input.cords[0],input.cords[1]);
 
 	return   xTexture.Sample(TextureSampler,temp );
@@ -46,7 +48,7 @@ technique11 SolidTexture
 
 // POINT LIGHT TECHNIQUES
 
-float4 ps_blue_pl(PS_IN input) : SV_Target
+float4 ps_blue_pl(PS_IN_TEX input) : SV_Target
 {
 	// TODO: Implement Point Light
 	return float4(0, 0, 1, gOpacity);

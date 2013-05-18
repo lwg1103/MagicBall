@@ -23,13 +23,15 @@ namespace MagicBall.Engine.Renderable
 
             texture = Texture2D.FromFile(device, "../../textures/" + textureName);
             ShaderResourceView resourceView = new ShaderResourceView(device, texture);
-            device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
 
             BeforeRender.Add((e, g, t) => {
                 if (g.Equals("SolidTexture"))
                 {
+                    device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
                     effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
                     effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
+                    device.ImmediateContext.PixelShader.SetShaderResource(resourceView,0);
+                    device.ImmediateContext.PixelShader.SetSampler(b, 0);
                 }
             });
         }
