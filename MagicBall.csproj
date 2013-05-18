@@ -55,6 +55,7 @@
     <Compile Include="Engine\Renderable\BouncingColladaModel.cs" />
     <Compile Include="Engine\Renderable\ColladaModel.cs" />
     <Compile Include="Engine\Renderable\IRenderable.cs" />
+    <Compile Include="Engine\Renderable\TexturedColladaModel.cs" />
     <Compile Include="Engine\RenderManager.cs" />
     <Compile Include="Engine\States.cs" />
     <Compile Include="Program.cs" />
@@ -98,9 +99,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="effects\texEffects.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="effects\effects.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="textures\snow.jpg" />
     <Content Include="vendor\Chwedziak.Diagnostics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

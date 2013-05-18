@@ -15,6 +15,7 @@ namespace MagicBall
             RenderManager.Instance.Initialize();
 
             EffectManager.Instance.Add("default", "effects/effects.fx");
+            EffectManager.Instance.Add("tex", "effects/texEffects.fx");
 
             CreateWalls();
 
@@ -128,11 +129,12 @@ namespace MagicBall
 
         static ColladaModel CreateFloor()
         {
-            ColladaModel floor = new ColladaModel(
+            ColladaModel floor = new TexturedColladaModel(
                 "models/plane2.dae",
                 "Plane001",
-                EffectManager.Instance.Get("default"),
-                "SolidWhite"
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "snow.jpg"
             );
 
             floor.SetTransformationMatrix(Matrix.Scaling(5f, 5f, 5f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, -10f, 0f));
