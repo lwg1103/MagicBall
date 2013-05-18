@@ -6,6 +6,7 @@ namespace MagicBall.Engine.Renderable
     class TexturedColladaModel : ColladaModel
     {
         Texture2D texture;
+        ShaderResourceView resourceView;
 
         public TexturedColladaModel(string model, string geometry, Effect effect, string technique, string textureName)
             : base(model, geometry, effect, technique)
@@ -22,17 +23,22 @@ namespace MagicBall.Engine.Renderable
             SamplerState b = SamplerState.FromDescription(device, a);
 
             texture = Texture2D.FromFile(device, "../../textures/" + textureName);
-            ShaderResourceView resourceView = new ShaderResourceView(device, texture);
+            resourceView = new ShaderResourceView(device, texture);
 
-            BeforeRender.Add((e, g, t) => {
-                if (g.Equals("SolidTexture"))
-                {
-                    device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
-                    effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
-                    effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
-                    device.ImmediateContext.PixelShader.SetShaderResource(resourceView,0);
-                    device.ImmediateContext.PixelShader.SetSampler(b, 0);
-                }
+            device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
+            effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
+            effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
+            device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
+            device.ImmediateContext.PixelShader.SetSampler(b, 0);
+
+            BeforeRender.Add((e, g, t) =>
+            {
+
+                device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
+                effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
+                effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
+                device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
+                device.ImmediateContext.PixelShader.SetSampler(b, 0);
             });
         }
     }

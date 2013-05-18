@@ -105,7 +105,13 @@
     <Content Include="effects\effects.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="textures\ball.jpeg" />
+    <Content Include="textures\ceiling.jpg" />
+    <Content Include="textures\floor.jpg" />
+    <Content Include="textures\floorHigh.jpeg" />
     <Content Include="textures\snow.jpg" />
+    <Content Include="textures\wall.jpeg" />
+    <Content Include="textures\wood.bmp" />
     <Content Include="vendor\Chwedziak.Diagnostics.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
