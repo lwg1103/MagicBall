@@ -15,6 +15,7 @@ namespace MagicBall
             RenderManager.Instance.Initialize();
 
             EffectManager.Instance.Add("default", "effects/effects.fx");
+            EffectManager.Instance.Add("tex", "effects/texEffects.fx");
 
             CreateWalls();
 
@@ -86,56 +87,59 @@ namespace MagicBall
 
         static ColladaModel CreateWallBack()
         {
-            ColladaModel wall = new ColladaModel(
+            ColladaModel wall = new TexturedColladaModel(
                 "models/plane2.dae",
                 "Plane001",
-                EffectManager.Instance.Get("default"),
-                "SolidYellow"
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "wood.bmp"
             );
-
-            wall.SetTransformationMatrix(Matrix.Scaling(2f, 1f, 1f) * Matrix.Translation(0f, 70f, 80f));
+            wall.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.Translation(0f, 70f, 80f));
 
             return wall;
         }
 
         static ColladaModel CreateWallRight()
         {
-            ColladaModel wall = new ColladaModel(
+            ColladaModel wall = new TexturedColladaModel(
                 "models/plane2.dae",
                 "Plane001",
-                EffectManager.Instance.Get("default"),
-                "SolidYellow"
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "wall.jpeg"
             );
 
-            wall.SetTransformationMatrix(Matrix.Scaling(2f, 1f, 1f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(80f, 70f, 0f));
+            wall.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(80f, 70f, 0f));
 
             return wall;
         }
 
         static ColladaModel CreateCeiling()
         {
-            ColladaModel ceiling = new ColladaModel(
+            ColladaModel ceiling = new TexturedColladaModel(
                 "models/plane2.dae",
                 "Plane001",
-                EffectManager.Instance.Get("default"),
-                "SolidWhite"
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "ceiling.jpg"
             );
 
-            ceiling.SetTransformationMatrix(Matrix.Scaling(2f, 2f, 2f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, 150f, 0f));
+            ceiling.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, 150f, 0f));
 
             return ceiling;
         }
 
         static ColladaModel CreateFloor()
         {
-            ColladaModel floor = new ColladaModel(
+            ColladaModel floor = new TexturedColladaModel(
                 "models/plane2.dae",
                 "Plane001",
-                EffectManager.Instance.Get("default"),
-                "SolidWhite"
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "floorHigh.jpeg"
             );
 
-            floor.SetTransformationMatrix(Matrix.Scaling(5f, 5f, 5f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, -10f, 0f));
+            floor.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, -10f, 0f));
 
             return floor;
         }
