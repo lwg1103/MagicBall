@@ -3,7 +3,7 @@ using SlimDX.Direct3D11;
 
 namespace MagicBall.Engine.Renderable
 {
-    class BouncingColladaModel : ColladaModel
+    class BouncingColladaModel : TexturedColladaModel
     {
         float MaxBounce;
         float LimitBounce;
@@ -11,8 +11,9 @@ namespace MagicBall.Engine.Renderable
         float CurrentBounce;
         int Multipl;
         float BounceDiff;
-        
-        public BouncingColladaModel(string model, string geometry, Effect effect, string technique, float maxBounce, float bounce) : base(model, geometry, effect, technique)
+
+        public BouncingColladaModel(string model, string geometry, Effect effect, string technique, string textureName, float maxBounce, float bounce)
+            : base(model, geometry, effect, technique, textureName)
         {
             LimitBounce = maxBounce;
             MaxBounce = maxBounce;

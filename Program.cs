@@ -67,8 +67,9 @@ namespace MagicBall
                 new BouncingColladaModel(
                     "models/ball.dae",
                     "Sphere001",
-                    EffectManager.Instance.Get("default"),
-                    "SolidRed",
+                    EffectManager.Instance.Get("tex"),
+                    "SolidTexture",
+                    "ball.jpeg",
                     50f,
                     0.03f
                 )
@@ -136,7 +137,7 @@ namespace MagicBall
                 "Plane001",
                 EffectManager.Instance.Get("tex"),
                 "SolidTexture",
-                "floorHigh.jpeg"
+                "floor.jpg"
             );
 
             floor.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, -10f, 0f));
