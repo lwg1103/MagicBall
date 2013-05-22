@@ -45,21 +45,3 @@ technique11 SolidTexture
 		SetPixelShader(CompileShader(ps_4_0, ps_tex()));
 	}
 }
-
-// POINT LIGHT TECHNIQUES
-
-float4 ps_blue_pl(PS_IN_TEX input) : SV_Target
-{
-	// TODO: Implement Point Light
-	return float4(0, 0, 1, gOpacity);
-}
-
-technique11 PointLightBlue
-{
-	pass P0
-	{
-		SetGeometryShader(0);
-		SetVertexShader(CompileShader(vs_4_0, vs_tex()));
-		SetPixelShader(CompileShader(ps_4_0, ps_blue_pl()));
-	}
-}
