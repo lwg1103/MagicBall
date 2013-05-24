@@ -69,7 +69,7 @@ namespace MagicBall
                     "Sphere001",
                     EffectManager.Instance.Get("tex"),
                     "GlowTexture",
-                    "ball.jpeg",
+                    "ball.jpg",
                     50f,
                     0.03f
                 )
