@@ -1,5 +1,7 @@
 ﻿using SlimDX;
 using SlimDX.Direct3D11;
+using Chwedziak.Diagnostics;
+using System;
 
 namespace MagicBall.Engine.Renderable
 {
@@ -25,21 +27,26 @@ namespace MagicBall.Engine.Renderable
             texture = Texture2D.FromFile(device, "../../textures/" + textureName);
             resourceView = new ShaderResourceView(device, texture);
 
-            device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
-            effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
-            effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
-            device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
-            device.ImmediateContext.PixelShader.SetSampler(b, 0);
-
             BeforeRender.Add((e, g, t) =>
             {
-
+                Vector4 lightPos = Vector3.Transform(Vector3.Zero, RenderManager.Instance.GetRenderable("ball").GetTransformationMatrix());
+                effect.GetVariableByName("gLightPos").AsVector().Set(new Vector3(lightPos.X, lightPos.Y, lightPos.Z));
+                effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+                float lightStrength = (float)TexturedColladaModel.distort((double)CpuUsage.CurrentValue) / 100.0f;
+                effect.GetVariableByName("lightStrength").AsScalar().Set(lightStrength);
                 device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
                 effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
                 effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
                 device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
                 device.ImmediateContext.PixelShader.SetSampler(b, 0);
             });
+        }
+
+        public static double distort(double original)
+        {
+            return (original > 0.54)
+                ? original + 0.54
+                : original * Math.Pow(Math.Exp(1 - original), 5) / 10 / Math.E;
         }
     }
 }

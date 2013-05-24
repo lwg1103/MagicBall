@@ -68,7 +68,7 @@ namespace MagicBall
                     "models/ball.dae",
                     "Sphere001",
                     EffectManager.Instance.Get("tex"),
-                    "SolidTexture",
+                    "GlowTexture",
                     "ball.jpeg",
                     50f,
                     0.03f
