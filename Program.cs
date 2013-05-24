@@ -70,8 +70,8 @@ namespace MagicBall
                     EffectManager.Instance.Get("tex"),
                     "GlowTexture",
                     "ball.jpg",
-                    50f,
-                    0.03f
+                    5f,
+                    0.001f
                 )
             );
 
