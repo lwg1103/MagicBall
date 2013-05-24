@@ -39,21 +39,7 @@ namespace MagicBall
                 "PointLightBlue"
             );
 
-            RenderManager.Instance.AddRenderable("table", table);
-
-            // Set gLight* constraints before model render
-            /*
-            table.BeforeRender.Add((effect, geomery, technique) => {
-                // LightPos is the ball's centre current position
-                Vector4 lightPos = Vector3.Transform(Vector3.Zero, RenderManager.Instance.GetRenderable("ball").GetTransformationMatrix());
-
-                effect.GetVariableByName("gLightAtt").AsVector().Set(new Vector3(0f, 0.2f, 0f));
-                effect.GetVariableByName("gLightRange").AsScalar().Set(100.0f);
-                effect.GetVariableByName("gLightAmbient").AsVector().Set(new Vector4(0.3f, 0.3f, 0.3f, 1.0f));
-                effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-                effect.GetVariableByName("gLightPos").AsVector().Set(new Vector3(lightPos.X, lightPos.Y, lightPos.Z));
-            });
-            */
+            RenderManager.Instance.AddRenderable("table", table);            
 
             table.SetTransformationMatrix(
                 Matrix.Multiply(Matrix.Multiply(Matrix.RotationX((float)Math.PI / 2), Matrix.Translation(0f, 10f, 0f)), Matrix.Scaling(2f, 2f, 2f))
