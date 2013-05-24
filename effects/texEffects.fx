@@ -43,7 +43,7 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 
 	float4 worldPosition = mul(input.pos, gWorld);
 
-	output.lightPos = gLightPos;// - worldPosition.xyz;
+	output.lightPos = gLightPos - worldPosition.xyz;
 	output.lightPos = normalize(output.lightPos);
 
 	return output;
@@ -52,14 +52,14 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 float4 ps_tex(PS_IN_TEX input) : SV_Target
 {
 	float lightIntensity = saturate(dot(input.normal, input.lightPos));
-	float4 color = gLightDiffuse * lightIntensity;
+	float4 color = gLightDiffuse * lightIntensity*10;
 
 	float2 temp;
 	temp  = float2(input.cords[0],input.cords[1]);
 	
 	float4 texel = xTexture.Sample(TextureSampler,temp );
 
-	color = color + texel;
+	color = saturate(color) * texel;
 
 	return color;
 }
