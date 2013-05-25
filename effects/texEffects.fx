@@ -38,13 +38,12 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 	output.pos = mul(mul(mul(input.pos, mul(gWorld, gTrans)), gView), gProj);
         output.cords =input.cords;
 
-	output.normal = mul(input.normal, gWorld);	
+	output.normal = mul(input.normal, mul(gTrans, gWorld));	
     output.normal = normalize(output.normal);
 
 	float4 worldPosition = mul(input.pos, mul(gWorld, gTrans));
 
 	output.lightPos = gLightPos - worldPosition.xyz;
-	output.lightPos.z = 1.0f; //nie wiem czemu inaczej nie dziala
 	output.lightPos = normalize(output.lightPos);
 
 	return output;
