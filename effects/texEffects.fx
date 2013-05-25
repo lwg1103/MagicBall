@@ -44,7 +44,7 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 	float4 worldPosition = mul(input.pos, mul(gWorld, gTrans));
 
 	output.lightPos = gLightPos - worldPosition.xyz;
-	output.lightPos.z = 1.0f;
+	output.lightPos.z = 1.0f; //nie wiem czemu inaczej nie dziala
 	output.lightPos = normalize(output.lightPos);
 
 	return output;
@@ -53,7 +53,7 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 float4 ps_tex(PS_IN_TEX input) : SV_Target
 {
 	float lightIntensity = saturate(dot(input.normal, input.lightPos));
-	float4 color = gLightDiffuse * lightIntensity*lightStrength*100;
+	float4 color = gLightDiffuse * lightIntensity * lightStrength * 100;
 
 	float2 temp;
 	temp  = float2(input.cords[0],input.cords[1]);

@@ -32,19 +32,164 @@ namespace MagicBall
 
         static void CreateTable()
         {
-            ColladaModel table = new ColladaModel(
-                "models/capsule.dae",
-                "Capsule001",
-                EffectManager.Instance.Get("default"),
-                "PointLightBlue"
-            );
-
-            RenderManager.Instance.AddRenderable("table", table);            
-
-            table.SetTransformationMatrix(
-                Matrix.Multiply(Matrix.Multiply(Matrix.RotationX((float)Math.PI / 2), Matrix.Translation(0f, 10f, 0f)), Matrix.Scaling(2f, 2f, 2f))
-            );
+            CreateTableTop();
+            CreateTableLegs();
+            
         }
+
+        static void CreateTableLegs()
+        {
+            CreateTableLeg(25.0f, 50.0f);
+            CreateTableLeg(-25.0f, 50.0f); 
+            CreateTableLeg(25.0f, -50.0f);
+            CreateTableLeg(-25.0f, -50.0f);
+        }
+
+        static void CreateTableLeg(float x, float y)
+        {
+            RenderManager.Instance.AddRenderable("table-leg-front-" + x + "-" + y, CreateTableLegElement(x, y - 3.0f));
+            RenderManager.Instance.AddRenderable("table-leg-back-" + x + "-" + y, CreateTableLegElement(x, y + 3.0f));
+            RenderManager.Instance.AddRenderable("table-leg-right-" + x + "-" + y, CreateTableLegElementRotated(x + 3.0f, y));
+            RenderManager.Instance.AddRenderable("table-leg-left-" + x + "-" + y, CreateTableLegElementRotated(x - 3.0f, y));
+        }
+
+        static ColladaModel CreateTableLegElement(float x, float y)
+        {
+            ColladaModel element = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            element.SetTransformationMatrix(Matrix.Scaling(0.04f, 0.19f, 0.04f) * Matrix.Translation(x, 5.0f, y));
+
+            return element;
+        }
+
+        static ColladaModel CreateTableLegElementRotated(float x, float y)
+        {
+            ColladaModel element = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            element.SetTransformationMatrix(Matrix.Scaling(0.04f, 0.19f, 0.04f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(x, 5.0f, y));
+
+            return element;
+        }
+
+        static void CreateTableTop()
+        {
+            RenderManager.Instance.AddRenderable("table-top-up", CreateTableTopUp());
+            RenderManager.Instance.AddRenderable("table-top-down", CreateTableTopDown());
+            RenderManager.Instance.AddRenderable("table-top-back", CreateTableTopBack());
+            RenderManager.Instance.AddRenderable("table-top-front", CreateTableTopFront());
+            RenderManager.Instance.AddRenderable("table-top-right", CreateTableTopRight());
+            RenderManager.Instance.AddRenderable("table-top-left", CreateTableTopLeft());
+        }
+
+        static ColladaModel CreateTableTopUp()
+        {
+            ColladaModel table = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.75f, 0.5f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, 20f, 0f));
+
+            return table;
+        }
+
+        static ColladaModel CreateTableTopDown()
+        {
+            ColladaModel table = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.75f, 0.5f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, 18f, 0f));
+
+            return table;
+        }
+
+        static ColladaModel CreateTableTopBack()
+        {
+            ColladaModel table = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.02f, 0.5f) *  Matrix.Translation(0f, 19f, 60f));
+
+            return table;
+        }
+
+        static ColladaModel CreateTableTopFront()
+        {
+            ColladaModel table = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.02f, 0.5f) * Matrix.Translation(0f, 19f, -60f));
+
+            return table;
+        }
+
+        static ColladaModel CreateTableTopRight()
+        {
+            ColladaModel table = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            table.SetTransformationMatrix(Matrix.Scaling(0.75f, 0.02f, 0.5f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(40f, 19f, 0f));
+
+            return table;
+        }
+
+        static ColladaModel CreateTableTopLeft()
+        {
+            ColladaModel table = new TexturedColladaModel(
+                "models/plane2.dae",
+                "Plane001",
+                EffectManager.Instance.Get("tex"),
+                "SolidTexture",
+                "table.jpeg"
+            );
+
+            table.SetTransformationMatrix(Matrix.Scaling(0.75f, 0.02f, 0.5f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(-40f, 19f, 0f));
+
+            return table;
+        }
+
+        //static void CreateTableLegs()
+        //{
+        //}
+
+        //static ColladaModel CreateTableLeg()
+        //{
+        //}
 
         static void CreateBall()
         {
