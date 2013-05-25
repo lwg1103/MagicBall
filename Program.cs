@@ -47,13 +47,13 @@ namespace MagicBall
 
         static void CreateTableLeg(float x, float y)
         {
-            RenderManager.Instance.AddRenderable("table-leg-front-" + x + "-" + y, CreateTableLegElement(x, y - 3.0f));
-            RenderManager.Instance.AddRenderable("table-leg-back-" + x + "-" + y, CreateTableLegElement(x, y + 3.0f));
-            RenderManager.Instance.AddRenderable("table-leg-right-" + x + "-" + y, CreateTableLegElementRotated(x + 3.0f, y));
-            RenderManager.Instance.AddRenderable("table-leg-left-" + x + "-" + y, CreateTableLegElementRotated(x - 3.0f, y));
+            RenderManager.Instance.AddRenderable("table-leg-front-" + x + "-" + y, CreateTableLegElement(x, y - 3.0f,y > 0));
+            RenderManager.Instance.AddRenderable("table-leg-back-" + x + "-" + y, CreateTableLegElement(x, y + 3.0f, y > 0));
+            RenderManager.Instance.AddRenderable("table-leg-right-" + x + "-" + y, CreateTableLegElementRotated(x + 3.0f, y, x > 0));
+            RenderManager.Instance.AddRenderable("table-leg-left-" + x + "-" + y, CreateTableLegElementRotated(x - 3.0f, y, x > 0));
         }
 
-        static ColladaModel CreateTableLegElement(float x, float y)
+        static ColladaModel CreateTableLegElement(float x, float y, bool inverted)
         {
             ColladaModel element = new TexturedColladaModel(
                 "models/plane2.dae",
@@ -62,13 +62,13 @@ namespace MagicBall
                 "SolidTexture",
                 "table.jpeg"
             );
-
-            element.SetTransformationMatrix(Matrix.Scaling(0.04f, 0.19f, 0.04f) * Matrix.Translation(x, 5.0f, y));
+            Matrix rotation = (inverted) ? Matrix.RotationX((float)Math.PI) : Matrix.RotationX(0);
+            element.SetTransformationMatrix(Matrix.Scaling(0.04f, 0.18f, 0.04f) * rotation * Matrix.Translation(x, 5.0f, y));
 
             return element;
         }
 
-        static ColladaModel CreateTableLegElementRotated(float x, float y)
+        static ColladaModel CreateTableLegElementRotated(float x, float y, bool inverted)
         {
             ColladaModel element = new TexturedColladaModel(
                 "models/plane2.dae",
@@ -78,7 +78,8 @@ namespace MagicBall
                 "table.jpeg"
             );
 
-            element.SetTransformationMatrix(Matrix.Scaling(0.04f, 0.19f, 0.04f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(x, 5.0f, y));
+            Matrix rotation = (inverted) ? Matrix.RotationY(3*(float)Math.PI / 2) : Matrix.RotationY((float)Math.PI / 2);
+            element.SetTransformationMatrix(Matrix.Scaling(0.04f, 0.18f, 0.04f) * rotation * Matrix.Translation(x, 5.0f, y));
 
             return element;
         }
@@ -103,7 +104,7 @@ namespace MagicBall
                 "table.jpeg"
             );
 
-            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.75f, 0.5f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, 20f, 0f));
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.75f, 0.5f) * Matrix.RotationX(3*(float)Math.PI / 2) * Matrix.Translation(0f, 20f, 0f));
 
             return table;
         }
@@ -118,7 +119,7 @@ namespace MagicBall
                 "table.jpeg"
             );
 
-            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.75f, 0.5f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, 18f, 0f));
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.75f, 0.5f) * Matrix.RotationX(3*(float)Math.PI / 2) * Matrix.Translation(0f, 18f, 0f));
 
             return table;
         }
@@ -133,7 +134,7 @@ namespace MagicBall
                 "table.jpeg"
             );
 
-            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.02f, 0.5f) *  Matrix.Translation(0f, 19f, 60f));
+            table.SetTransformationMatrix(Matrix.Scaling(0.5f, 0.02f, 0.5f) * Matrix.RotationY((float)Math.PI) * Matrix.Translation(0f, 19f, 60f));
 
             return table;
         }
@@ -163,7 +164,7 @@ namespace MagicBall
                 "table.jpeg"
             );
 
-            table.SetTransformationMatrix(Matrix.Scaling(0.75f, 0.02f, 0.5f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(40f, 19f, 0f));
+            table.SetTransformationMatrix(Matrix.Scaling(0.75f, 0.02f, 0.5f) * Matrix.RotationY(3*(float)Math.PI / 2) * Matrix.Translation(40f, 19f, 0f));
 
             return table;
         }
@@ -182,15 +183,7 @@ namespace MagicBall
 
             return table;
         }
-
-        //static void CreateTableLegs()
-        //{
-        //}
-
-        //static ColladaModel CreateTableLeg()
-        //{
-        //}
-
+        
         static void CreateBall()
         {
             RenderManager.Instance.AddRenderable(
@@ -226,7 +219,7 @@ namespace MagicBall
                 "SolidTexture",
                 "wood.bmp"
             );
-            wall.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.Translation(0f, 70f, 80f));
+            wall.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationY((float)Math.PI) * Matrix.Translation(0f, 70f, 80f));
 
             return wall;
         }
@@ -241,7 +234,7 @@ namespace MagicBall
                 "wall.jpeg"
             );
 
-            wall.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationY((float)Math.PI / 2) * Matrix.Translation(80f, 70f, 0f));
+            wall.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationY(3*(float)Math.PI / 2) * Matrix.Translation(80f, 70f, 0f));
 
             return wall;
         }
@@ -271,7 +264,7 @@ namespace MagicBall
                 "floor.jpg"
             );
 
-            floor.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationX((float)Math.PI / 2) * Matrix.Translation(0f, -10f, 0f));
+            floor.SetTransformationMatrix(Matrix.Scaling(1f, 1f, 1f) * Matrix.RotationX(3*(float)Math.PI / 2) * Matrix.Translation(0f, -10f, 0f));
 
             return floor;
         }

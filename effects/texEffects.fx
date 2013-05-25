@@ -53,7 +53,7 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 float4 ps_tex(PS_IN_TEX input) : SV_Target
 {
 	float lightIntensity = saturate(dot(input.normal, input.lightPos));
-	float4 color = gLightDiffuse * lightIntensity * lightStrength * 100;
+	float4 color = gLightDiffuse + lightIntensity * lightStrength;
 
 	float2 temp;
 	temp  = float2(input.cords[0],input.cords[1]);
@@ -72,7 +72,7 @@ float4 ps_glow_tex(PS_IN_TEX input) : SV_Target
 	
 	float4 texel = xTexture.Sample(TextureSampler,temp );
 
-	float4 color = texel + lightStrength;
+	float4 color = saturate(texel * 0.3 + lightStrength*0.7);
 
 	return color;
 }

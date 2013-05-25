@@ -30,11 +30,11 @@ namespace MagicBall.Engine.Renderable
             BeforeRender.Add((e, g, t) =>
             {
                 Vector4 lightPos = Vector3.Transform(Vector3.Zero, RenderManager.Instance.GetRenderable("ball").GetTransformationMatrix());
-                //effect.GetVariableByName("gTrans").AsMatrix().SetMatrix(this.GetTransformationMatrix());
+                effect.GetVariableByName("gTrans").AsMatrix().SetMatrix(this.GetTransformationMatrix());
                 effect.GetVariableByName("gLightPos").AsVector().Set(new Vector3(lightPos.X, lightPos.Y, lightPos.Z));
-                effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-                float lightStrength = (float)TexturedColladaModel.distort((double)CpuUsage.CurrentValue) / 100.0f;
-                effect.GetVariableByName("lightStrength").AsScalar().Set(lightStrength);
+                effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(0.2f, 0.2f, 0.2f, 1.0f));
+                float lightStrength = (float)TexturedColladaModel.distort((double)CpuUsage.CurrentValue) / 100.0f;                
+                effect.GetVariableByName("lightStrength").AsScalar().Set(lightStrength*2);
                 device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
                 effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
                 effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
