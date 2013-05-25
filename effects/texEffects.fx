@@ -53,7 +53,7 @@ PS_IN_TEX vs_tex(VS_IN_TEX input)
 float4 ps_tex(PS_IN_TEX input) : SV_Target
 {
 	float lightIntensity = saturate(dot(input.normal, input.lightPos));
-	float4 color = gLightDiffuse * lightIntensity*10;
+	float4 color = gLightDiffuse * lightIntensity*lightStrength*100;
 
 	float2 temp;
 	temp  = float2(input.cords[0],input.cords[1]);
