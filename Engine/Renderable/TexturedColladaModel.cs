@@ -30,7 +30,8 @@ namespace MagicBall.Engine.Renderable
             BeforeRender.Add((e, g, t) =>
             {
                 Vector4 lightPos = Vector3.Transform(Vector3.Zero, RenderManager.Instance.GetRenderable("ball").GetTransformationMatrix());
-                effect.GetVariableByName("gLightPos").AsVector().Set(new Vector3(lightPos.X, lightPos.Y, 1f)); //1 bo poki zle transformuje nie moze byc z=0
+                //effect.GetVariableByName("gTrans").AsMatrix().SetMatrix(this.GetTransformationMatrix());
+                effect.GetVariableByName("gLightPos").AsVector().Set(new Vector3(lightPos.X, lightPos.Y, lightPos.Z));
                 effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(1.0f, 1.0f, 1.0f, 1.0f));
                 float lightStrength = (float)TexturedColladaModel.distort((double)CpuUsage.CurrentValue) / 100.0f;
                 effect.GetVariableByName("lightStrength").AsScalar().Set(lightStrength);
