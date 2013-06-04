@@ -195,7 +195,7 @@ namespace MagicBall
                     "GlowTexture",
                     "ball.jpg",
                     5f,
-                    0.001f
+                    0.01f
                 )
             );
 

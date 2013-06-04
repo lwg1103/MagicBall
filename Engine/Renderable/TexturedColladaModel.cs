@@ -24,7 +24,7 @@ namespace MagicBall.Engine.Renderable
 
             SamplerState b = SamplerState.FromDescription(device, a);
 
-            texture = Texture2D.FromFile(device, "../../textures/" + textureName);
+            texture = Texture2D.FromFile(device, "textures/" + textureName);
             resourceView = new ShaderResourceView(device, texture);
 
             BeforeRender.Add((e, g, t) =>
@@ -32,9 +32,8 @@ namespace MagicBall.Engine.Renderable
                 Vector4 lightPos = Vector3.Transform(Vector3.Zero, RenderManager.Instance.GetRenderable("ball").GetTransformationMatrix());
                 effect.GetVariableByName("gTrans").AsMatrix().SetMatrix(this.GetTransformationMatrix());
                 effect.GetVariableByName("gLightPos").AsVector().Set(new Vector3(lightPos.X, lightPos.Y, lightPos.Z));
-                effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(0.2f, 0.2f, 0.2f, 1.0f));
-                float lightStrength = (float)TexturedColladaModel.distort((double)CpuUsage.CurrentValue) / 100.0f;                
-                effect.GetVariableByName("lightStrength").AsScalar().Set(lightStrength*2);
+                effect.GetVariableByName("gLightDiffuse").AsVector().Set(new Vector4(0.2f, 0.2f, 0.2f, 1.0f));             
+                effect.GetVariableByName("lightStrength").AsScalar().Set(TexturedColladaModel.distortDouble((double)CpuUsage.CurrentValue) / 100.0f);
                 device.ImmediateContext.PixelShader.SetShaderResource(resourceView, 0);
                 effect.GetVariableByName("xTexture").AsResource().SetResource(resourceView);
                 effect.GetVariableByName("TextureSampler").AsSampler().SetSamplerState(0, b);
@@ -48,6 +47,11 @@ namespace MagicBall.Engine.Renderable
             return (original > 0.54)
                 ? original + 0.54
                 : original * Math.Pow(Math.Exp(1 - original), 5) / 10 / Math.E;
+        }
+
+        public static float distortDouble(double original)
+        {
+            return (float)distort(original) * 2;
         }
     }
 }

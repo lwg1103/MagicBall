@@ -42,7 +42,7 @@ namespace MagicBall.Engine
             camera = new Camera();
 
             phi = 0.9f;
-            theta = 0.1f;
+            theta = 0.2f;
             radius = 300f;
 
             camera.Target = new Vector3(0, 5f, 0);
@@ -64,6 +64,7 @@ namespace MagicBall.Engine
         {
             DeviceManager.Instance.Initialize();
 
+            /* disable camera
             DeviceManager.Instance.Form.KeyDown += (o, e) =>
             {
                 switch (e.KeyCode)
@@ -78,6 +79,7 @@ namespace MagicBall.Engine
 
                 camera.SetPositionSpherical(phi, theta, radius);
             };
+            */
         }
 
         public void Render()

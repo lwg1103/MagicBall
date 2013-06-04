@@ -46,10 +46,10 @@ namespace MagicBall.Engine
                 DepthBias = 1,
                 DepthBiasClamp = 10.0f,
                 FillMode = FillMode.Solid,
-                IsAntialiasedLineEnabled = false,
+                IsAntialiasedLineEnabled = true,
                 IsDepthClipEnabled = false,
                 IsFrontCounterclockwise = true,
-                IsMultisampleEnabled = false,
+                IsMultisampleEnabled = true,
                 IsScissorEnabled = false
             };
             cullNoneFillSolid = RasterizerState.FromDescription(device, rasStateDesc);

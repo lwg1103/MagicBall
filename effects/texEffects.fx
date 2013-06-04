@@ -61,7 +61,7 @@ float4 ps_tex(PS_IN_TEX input) : SV_Target
 
 	color = saturate(color) * texel;
 
-	return color;
+	return float4(color.xyz, 1.0f);
 }
 
 float4 ps_glow_tex(PS_IN_TEX input) : SV_Target
@@ -73,7 +73,7 @@ float4 ps_glow_tex(PS_IN_TEX input) : SV_Target
 
 	float4 color = saturate(texel * 0.3 + lightStrength*0.7);
 
-	return color;
+	return float4(color.xyz, lightStrength * 0.33f);
 }
 
 technique11 SolidTexture
