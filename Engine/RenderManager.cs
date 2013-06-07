@@ -35,6 +35,8 @@ namespace MagicBall.Engine
         private float phi;
         private float theta;
         private float radius;
+        private float mouseX = -1;
+        private float mouseY = -1;
 
         public RenderManager()
         {
@@ -64,22 +66,30 @@ namespace MagicBall.Engine
         {
             DeviceManager.Instance.Initialize();
 
-            /* disable camera
-            DeviceManager.Instance.Form.KeyDown += (o, e) =>
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.A: radius -= 5f; break;
-                    case Keys.Z: radius += 5f; break;
-                    case Keys.Left: phi += 0.08f; break;
-                    case Keys.Right: phi -= 0.08f; break;
-                    case Keys.Up: theta += 0.08f; break;
-                    case Keys.Down: theta -= 0.08f; break;
-                }
+            DeviceManager.Instance.Form.MouseClick += EndAnimation;
+            DeviceManager.Instance.Form.MouseMove += MouseMoved;
+            DeviceManager.Instance.Form.KeyDown += EndAnimation;
+        }
 
-                camera.SetPositionSpherical(phi, theta, radius);
-            };
-            */
+        void MouseMoved(object sender, MouseEventArgs e)
+        {
+            if (mouseX == -1 && mouseY == -1)
+            {
+                mouseX = e.X;
+                mouseY = e.Y;
+            }
+            else
+            {
+                if (Math.Abs(mouseX - e.X) + Math.Abs(mouseY - e.Y) > 20)
+                {
+                    DeviceManager.Instance.Form.Close();
+                }
+            }
+        }
+
+        void EndAnimation(object sender, EventArgs e)
+        {
+            DeviceManager.Instance.Form.Close();
         }
 
         public void Render()
