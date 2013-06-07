@@ -82,7 +82,7 @@ namespace MagicBall.Engine
             {
                 if (Math.Abs(mouseX - e.X) + Math.Abs(mouseY - e.Y) > 20)
                 {
-                    DeviceManager.Instance.Form.Close();
+                    EndAnimation(sender, e);
                 }
             }
         }
